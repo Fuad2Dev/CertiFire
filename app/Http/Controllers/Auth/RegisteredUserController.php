@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
 use App\Models\Program;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -46,6 +47,10 @@ class RegisteredUserController extends Controller
             'program_id' => $program->refresh()->id,
             'password' => Hash::make($request->password),
             'is_admin' => true
+        ]);
+
+        $permission = Permission::create([
+            'user_id' => $user->refresh()->id
         ]);
 
         event(new Registered($user));
