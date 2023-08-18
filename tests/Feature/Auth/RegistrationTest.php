@@ -27,6 +27,8 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
+        $this->assertDatabaseHas('programs', ['name'=> 'Some Bootcamp']);
+        $this->assertDatabaseCount('permissions', 1);
         $response->assertRedirect(RouteServiceProvider::HOME);
     }
 }
